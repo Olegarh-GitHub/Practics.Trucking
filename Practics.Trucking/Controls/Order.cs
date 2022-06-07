@@ -105,7 +105,7 @@ namespace Practics.Trucking.Controls
         {
             string message = string.Empty;
             int index = 1;
-            foreach (var product in _order.Products)
+            foreach (var product in _order.Products.ToList())
             {
                 message +=
 $@"
@@ -115,11 +115,14 @@ $@"
    Цена: {product.Price} руб.
    Характеристики:
 
-" + 
+";
+                var messageSpecs =
                 product.Specifications is not null ||
                 product.Specifications.Any() 
                     ? $"{string.Join("\n", product.Specifications.Select((x, index) => $"{index + 1}) {x.Name}: {x.Value}"))}" 
                     : "- Нет";
+
+                message += messageSpecs;
 
                 index++;              
             }

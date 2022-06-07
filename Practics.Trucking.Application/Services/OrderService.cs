@@ -51,11 +51,11 @@ namespace Practics.Trucking.Application.Services
 
             order = await _orderRepository.CreateAsync(order);
 
-            products.ForEach(async x =>
+            products.ForEach(x =>
             {
                 x.OrderId = order.Id;
 
-                await _productService.UpdateAsync(x);
+                _productService.Update(x);
             });
 
             return order;
@@ -65,6 +65,7 @@ namespace Practics.Trucking.Application.Services
         {
             return _orderRepository.Read()
                 .Include(x => x.Products)
+                    .ThenInclude(x => x.Specifications)
                 .Include(x => x.User);
         }
     }

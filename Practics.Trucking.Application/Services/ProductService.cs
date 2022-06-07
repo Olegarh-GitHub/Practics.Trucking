@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,11 @@ namespace Practics.Trucking.Application.Services
         public async Task<Product> UpdateAsync(Product product)
         {
             return await _productRepository.UpdateAsync(product);
+        }
+
+        public Product Update(Product product)
+        {
+            return _productRepository.Update(product);
         }
     }
 }

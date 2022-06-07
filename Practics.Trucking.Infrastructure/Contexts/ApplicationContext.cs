@@ -30,7 +30,7 @@ namespace Practics.Trucking.Infrastructure.Contexts
         public ApplicationContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Trucking_SSL");
+            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Trucking_SSLE");
 
             return new ApplicationContext(optionsBuilder.Options);
         }
