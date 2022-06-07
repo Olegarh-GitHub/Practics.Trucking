@@ -17,6 +17,6 @@ namespace Practics.Trucking.Domain.Models
 
         public DeliveryStatus Status { get; set; }
 
-        public DateTime OrderTime { get; set; }
+        public DateTime OrderTime { get; set; } = DateTime.Now;
     }
 }

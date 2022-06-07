@@ -54,6 +54,7 @@
             this._userAboutButton.TabIndex = 9;
             this._userAboutButton.Text = "Подробнее об аккаунте";
             this._userAboutButton.UseVisualStyleBackColor = true;
+            this._userAboutButton.Click += new System.EventHandler(this._userAboutButton_Click);
             // 
             // _usernameLabel
             // 
@@ -159,6 +160,7 @@
             this._approveOrders.TabIndex = 11;
             this._approveOrders.Text = "Подтвердить заказы";
             this._approveOrders.UseVisualStyleBackColor = true;
+            this._approveOrders.Click += new System.EventHandler(this._approveOrders_Click);
             // 
             // MainProducer
             // 

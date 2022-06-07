@@ -24,6 +24,22 @@ namespace Practics.Trucking.Application.Services
             _productService = productService;
         }
 
+        public bool ApproveOrder(ApproveOrderInput input)
+        {
+            var orders = Read()
+                .Where(x => input.Orders.Contains(x.Id))
+                .ToList();
+
+            orders.ForEach(async x =>
+            {
+                x.Status = Domain.Enums.DeliveryStatus.Delivered;
+
+                await _orderRepository.UpdateAsync(x);
+            });
+
+            return true;
+        }
+
         public async Task<Order> OfferOrder(OfferOrderInput input)
         {
             var products = _productService

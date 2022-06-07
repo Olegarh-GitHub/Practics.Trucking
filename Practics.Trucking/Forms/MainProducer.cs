@@ -1,4 +1,5 @@
-﻿using Practics.Trucking.Application.Services;
+﻿using Practics.Trucking.Application.Inputs.Order;
+using Practics.Trucking.Application.Services;
 using Practics.Trucking.Services;
 using System;
 using System.Collections.Generic;
@@ -69,7 +70,7 @@ namespace Practics.Trucking.Forms
         public void InitOrders()
         {
             _myOrdersPanel.Controls.Clear();
-            _productControls.Clear();
+            _orderControls.Clear();
 
             var orders = _orderService.Read().ToList();
 
@@ -118,6 +119,27 @@ namespace Practics.Trucking.Forms
             await _sessionService.DropCurrentSession();
 
             _parent.Show();
+        }
+
+        private void _approveOrders_Click(object sender, EventArgs e)
+        {
+            var checkedOrders = _orderControls
+                .Where(x => x.IsChoosed())
+                .Select(x => x.OrderValue)
+                .ToList();
+
+            if (!checkedOrders.Any())
+            {
+                MessageBox.Show("Вы не выбрали ни одного заказа для завершения!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var input = new ApproveOrderInput(checkedOrders.Select(x => x.Id).ToList());
+
+            _orderService.ApproveOrder(input);
+
+            InitProducts();
+            InitOrders();
         }
     }
 }

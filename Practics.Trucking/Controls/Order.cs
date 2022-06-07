@@ -21,6 +21,9 @@ namespace Practics.Trucking.Controls
             _parent = parent;
             _order = order;
 
+            if (_order.Status == Domain.Enums.DeliveryStatus.Delivered)
+                checkBoxNeeded = false;
+
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             MinimumSize = new System.Drawing.Size(_parent.Width - 10, 75);
@@ -48,7 +51,8 @@ namespace Practics.Trucking.Controls
 
             var status = new Label()
             {
-                Text = $"Статус заказа: {(_order.Status == Domain.Enums.DeliveryStatus.InProcess ? "В процессе" : "Доставлено")}"
+                Text = $"Статус заказа: {(_order.Status == Domain.Enums.DeliveryStatus.InProcess ? "В процессе" : "Доставлено")}",
+                AutoSize= true
             };
 
             var detailButton = new Button()
@@ -84,7 +88,9 @@ namespace Practics.Trucking.Controls
             Controls.Add(date);
             Controls.Add(price);
             Controls.Add(count);
+            Controls.Add(status);
             Controls.Add(detailButton);
+            Controls.Add(detailProductButton);
 
             if (checkBoxNeeded)
             {
@@ -109,8 +115,11 @@ $@"
    Цена: {product.Price} руб.
    Характеристики:
 
-";
-                message += $"{string.Join("\n", product.Specifications.Select((x, index) => $"{index + 1}) {x.Name}: {x.Value}"))}";
+" + 
+                product.Specifications is not null ||
+                product.Specifications.Any() 
+                    ? $"{string.Join("\n", product.Specifications.Select((x, index) => $"{index + 1}) {x.Name}: {x.Value}"))}" 
+                    : "- Нет";
 
                 index++;              
             }
@@ -122,6 +131,9 @@ $@"
 
         public bool IsChoosed()
         {
+            if (_checkBox is null)
+                return false;
+
             return _checkBox.Checked;
         }
 

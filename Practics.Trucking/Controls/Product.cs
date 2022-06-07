@@ -90,6 +90,9 @@ namespace Practics.Trucking.Controls
 
         public bool IsChoosed()
         {
+            if (_checkBox is null)
+                return false;
+
             return _checkBox.Checked;
         }
 

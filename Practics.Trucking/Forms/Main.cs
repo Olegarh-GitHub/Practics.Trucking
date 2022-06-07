@@ -86,13 +86,13 @@ namespace Practics.Trucking.Forms
         public void InitOrders()
         {
             _myOrdersPanel.Controls.Clear();
-            _productControls.Clear();
+            _orderControls.Clear();
 
             var orders = _orderService.Read().ToList();
 
             foreach (var order in orders)
             {
-                var orderControl = new Controls.Order(_allProductsPanel, order);
+                var orderControl = new Controls.Order(_allProductsPanel, order, false);
 
                 _orderControls.Add(orderControl);
                 _myOrdersPanel.Controls.Add(orderControl);
